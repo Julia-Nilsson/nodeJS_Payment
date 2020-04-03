@@ -4,7 +4,7 @@
   "description": "Gruppuppgift 2, Hanna, Julia, Magnus, Marcus och Franco",
   "main": "index.js",
   "engines": {
-    "node": "10.16.3"
+    "node": "v12.14.1"
   },
   "directories": {
     "test": "test"
@@ -42,6 +42,7 @@
     "bcrypt": "^4.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "cookies-parser": "^1.2.0",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",

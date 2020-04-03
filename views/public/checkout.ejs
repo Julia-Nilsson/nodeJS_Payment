@@ -1,6 +1,8 @@
 <% if(token) { %> <%- include("userprofile/headermember.ejs") %> <% } 
  else { %> <%- include("header.ejs") %> <% } %>
 
+
+
 <div class="container mypage">
   <div class="row justify-content-center py-2">
     <h3 class="shoppingcart-title">Din Varukorg</h3>
@@ -74,4 +76,15 @@
     </div>
   </div>
 </div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    let stripe = Stripe('pk_test_6S7LMFzlqn3wbN2H3LjBAiDW00qdnGvRX1');
+    document.querySelector("#btn").addEventListener("click", ()=>{
+        stripe.redirectToCheckout({
+            sessionId: "<%=sessionId%>"
+        })
+    })
+</script>
+
 <%- include("footer.ejs") %>

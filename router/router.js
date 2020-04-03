@@ -9,6 +9,10 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("./verifyToken")
 const config = require("../config/config");
 const Candy = require("../model/productSchema");
+const stripe = require('stripe')('sk_test_...');
+
+//ändra inom andra parentesen, lägg i secret key. För att göra den hemlig lägg den i env
+//process.env.STRIPE_KEY
 const router = express.Router();
 
 const transport = nodemailer.createTransport(sendGridTransport({
@@ -210,10 +214,10 @@ router.get("/deleteWishlist/:id", verifyToken, async (req, res) => {
 })
 
 // För att komma till checkout
-router.route("/checkout")
-    .get(async (req, res) => {
-        const shoppingBag = await Candy.find();
-        res.render("checkout.ejs", { token: req.cookies.jsonwebtoken, shoppingBag, title: "Checkout" });
-    })
+
+router.get("/order", verifyToken, async (req, res) => {
+    const user = await User.findOne({ _id: req.user.user._id }).populate("wishlist.candyId");
+    res.render("checkout.ejs", {user, title: "Checkout" });
+})
 
 module.exports = router;

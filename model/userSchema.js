@@ -42,5 +42,43 @@ userSchema.methods.removeFromList = function (candyId) {
     return this.save();
 }
 
+//Lägg till produkt i varukorg
+userSchema.methods.addToCart = function(candy) {
+    const cartProductIndex = this.cart.items.findIndex(cp => {
+      return cp.candyId.toString() === candy._id.toString();
+    });
+    let newQuantity = 1;
+    const updatedCartItems = [...this.cart.items];
+   
+    if (cartProductIndex >= 0) {
+      newQuantity = this.cart.items[cartProductIndex].quantity + 1;
+      updatedCartItems[cartProductIndex].quantity = newQuantity;
+    } else {
+      updatedCartItems.push({
+        candyId: candy._id,
+        quantity: newQuantity
+      });
+    }
+    const updatedCart = {
+      items: updatedCartItems
+    };
+    this.cart = updatedCart;
+    return this.save();
+  };
+
+//Ta bort produkt från varukorg
+  userSchema.methods.removeFromCart = function(candyId) {
+    const updatedCartItems = this.cart.items.filter(item => {
+      return item.candyId.toString() !== candyId.toString();
+    });
+    this.cart.items = updatedCartItems;
+    return this.save();
+  };
+//Rensa varukorg
+  userSchema.methods.clearCart = function() {
+    this.cart = { items: [] };
+    return this.save();
+  };
+  
 const User = mongoose.model("User", userSchema);
 module.exports = User;
