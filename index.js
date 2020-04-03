@@ -28,7 +28,7 @@ app.use(admin);
 app.get("*", (req, res) => res.send("404"));
 
 const port = process.env.PORT || 8000;
-mongoose.connect(config.databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(config.databaseURL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(() => app.listen(port, () => console.log(`Connection success on port: ${port}`)));
 
 module.exports = app

@@ -10,6 +10,7 @@ const verifyToken = require("./verifyToken")
 const config = require("../config/config");
 const Candy = require("../model/productSchema");
 const stripe = require('stripe')('sk_test_...');
+require('dotenv').config()
 
 //ändra inom andra parentesen, lägg i secret key. För att göra den hemlig lägg den i env
 //process.env.STRIPE_KEY
