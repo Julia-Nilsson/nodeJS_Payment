@@ -1,0 +1,24 @@
+<% if(token) { %> <%- include("userprofile/headermember.ejs") %> <% } 
+ else { %> <%- include("header.ejs") %> <% } %> 
+
+
+ <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+        <h3>Thank you for your order!</h3>
+            <h6>Your products:</h6>
+            <ul class="order">
+                <% user.cart.forEach( (candy)=>{ %>
+                <li>
+                    <p><%= candy.candyId.name %></p>
+                    <p><%= candy.candyId.price %> kr </p>
+                    <div>
+                        <img src="<%= candy.candyId.img %>" alt="Bild på lakrits" class="hover wishlistImg">
+                    </div>
+                </li>
+                <% } ) %>
+            </ul>
+            <h6>Your shipping information:</h6>
+        </div>
+    </div>
+</div>

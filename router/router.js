@@ -9,8 +9,8 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("./verifyToken")
 const config = require("../config/config");
 const Candy = require("../model/productSchema");
-const stripe = require('stripe')('sk_test_...');
 require('dotenv').config()
+const stripe =require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 //ändra inom andra parentesen, lägg i secret key. För att göra den hemlig lägg den i env
 //process.env.STRIPE_KEY
@@ -216,9 +216,9 @@ router.get("/deleteWishlist/:id", verifyToken, async (req, res) => {
 
 // För att komma till checkout
 
-router.get("/order", verifyToken, async (req, res) => {
-    const user = await User.findOne({ _id: req.user.user._id }).populate("wishlist.candyId");
-    res.render("checkout.ejs", {user, title: "Checkout" });
+router.get("/checkout", /*verifyToken,async*/ (req, res) => {
+    //const user = await User.findOne({ _id: req.user.user._id }).populate("wishlist.candyId");
+    res.render("checkout.ejs", {token: req.cookies.jsonwebtoken , title: "Checkout" });
 })
 
 module.exports = router;

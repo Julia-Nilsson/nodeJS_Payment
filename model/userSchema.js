@@ -19,7 +19,21 @@ const userSchema = new mongoose.Schema({
         address: { type: String },
         city: { type: String },
         zip: { type: Number }
-    }]
+    }],
+
+    cart: {
+      items: [
+        {
+          candyId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Candy',
+            required: true
+          },
+          quantity: { type: Number, required: true }
+        }
+      ]
+    }
+  
 });
 
 // Lägg till produkt till wishlist
@@ -74,6 +88,7 @@ userSchema.methods.addToCart = function(candy) {
     this.cart.items = updatedCartItems;
     return this.save();
   };
+  
 //Rensa varukorg
   userSchema.methods.clearCart = function() {
     this.cart = { items: [] };
