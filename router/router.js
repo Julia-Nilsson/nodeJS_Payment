@@ -218,7 +218,7 @@ router.get("/deleteWishlist/:id", verifyToken, async (req, res) => {
 
 router.get("/checkout", /*verifyToken,async*/ (req, res) => {
     //const user = await User.findOne({ _id: req.user.user._id }).populate("wishlist.candyId");
-    res.render("/checkout.ejs", {token: req.cookies.jsonwebtoken , title: "Checkout" });
+    res.redirect("/checkout.ejs", {token: req.cookies.jsonwebtoken , title: "Checkout" });
 })
 
 module.exports = router;
