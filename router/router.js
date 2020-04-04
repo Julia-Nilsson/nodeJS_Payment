@@ -77,7 +77,7 @@ router.route("/signup")
                 const cookie = req.cookies.jsonwebtoken;
                 if (!cookie) {
                     res.cookie("jsonwebtoken", token, { maxAge: 3600000, httpOnly: true });
-                    res.redirect("/mypage");
+                    res.redirect("/userprofile/mypage");
                 }
             }
         })
@@ -115,7 +115,7 @@ router.route("/login")
                     }
                     if (user.admin == true) return res.redirect("/admin");
 
-                    res.redirect("/mypage");
+                    res.redirect("/userprofile/mypage");
                 }
                 res.redirect("/login");
             })
@@ -171,7 +171,7 @@ router.post("/resetpassword/:token", async (req, res) => {
 //Mypage
 router.get("/mypage", verifyToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user.user._id });
-    res.render("/mypage", { token: req.cookies.jsonwebtoken, user, title: "Medlemssida - Lasses Lakrits" });
+    res.render("/userprofile/mypage", { token: req.cookies.jsonwebtoken, user, title: "Medlemssida - Lasses Lakrits" });
 });
 
 //Logga ut
@@ -182,7 +182,7 @@ router.get("/logout", (req, res) => {
 //Ta bort user
 router.get("/deleteuser", verifyToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user.user._id });
-    res.render("/deleteuser", { user, title: "Avsluta medlemskap - Lasses Lakrits" });
+    res.render("/userprofile/deleteuser", { user, title: "Avsluta medlemskap - Lasses Lakrits" });
 });
 
 router.get("/deleteuser/:id", verifyToken, async (req, res) => {
@@ -197,7 +197,7 @@ router.get("/deleteuser/:id", verifyToken, async (req, res) => {
 //Wishlist
 router.get("/wishlist", verifyToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user.user._id }).populate("wishlist.candyId");
-    res.render("/wishlist", { token: req.cookies.jsonwebtoken, user, title: "Wishlist - Lasses" });
+    res.render("/userprofile/wishlist", { token: req.cookies.jsonwebtoken, user, title: "Wishlist - Lasses" });
 });
 
 router.get("/wishlist/:id", verifyToken, async (req, res) => {
@@ -205,20 +205,20 @@ router.get("/wishlist/:id", verifyToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user.user._id });
 
     await user.addToWishList(candy);
-    res.redirect("/wishlist");
+    res.redirect("/userprofile/wishlist");
 });
 
 router.get("/deleteWishlist/:id", verifyToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user.user._id });
     user.removeFromList(req.params.id);
-    res.redirect("/wishlist");
+    res.redirect("/userprofile/wishlist");
 })
 
 // För att komma till checkout
 
 router.get("/checkout", /*verifyToken,async*/ (req, res) => {
     //const user = await User.findOne({ _id: req.user.user._id }).populate("wishlist.candyId");
-    res.render("/checkout.ejs", {token: req.cookies.jsonwebtoken , title: "Checkout" });
+    res.render("/userprofile/checkout.ejs", {token: req.cookies.jsonwebtoken , title: "Checkout" });
 })
 
 module.exports = router;
