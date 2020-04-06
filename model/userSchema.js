@@ -77,7 +77,7 @@ userSchema.methods.addToCart = function(candy) {
       items: updatedCartItems
     };
     this.cart = updatedCart;
-    return this.save();
+    return this.save(); 
   };
 
 //Ta bort produkt från varukorg
@@ -88,7 +88,7 @@ userSchema.methods.addToCart = function(candy) {
     this.cart.items = updatedCartItems;
     return this.save();
   };
-  
+
 //Rensa varukorg
   userSchema.methods.clearCart = function() {
     this.cart = { items: [] };

@@ -47,7 +47,6 @@ router.route("/allproducts")
 // För att komma till en specifik produkt
 router.route("/allproducts/:id")
     .get(async (req, res) => {
-        console.log(req.params.id);
         const selectedCandy = await Candy.findOne({ name: req.params.id });
         res.render("oneproduct", { token: req.cookies.jsonwebtoken, selectedCandy, title: "Produkt" });
     })
@@ -197,7 +196,7 @@ router.get("/deleteuser/:id", verifyToken, async (req, res) => {
 //Wishlist
 router.get("/wishlist", verifyToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user.user._id }).populate("wishlist.candyId");
-    res.render("wishlist", { token: req.cookies.jsonwebtoken, user, title: "Wishlist - Lasses" });
+    res.render("wishlist", { token: req.cookies.jsonwebtoken, user, title: "Wishlist - Lasses Lakrits" });
 });
 
 router.get("/wishlist/:id", verifyToken, async (req, res) => {
@@ -216,9 +215,56 @@ router.get("/deleteWishlist/:id", verifyToken, async (req, res) => {
 
 // För att komma till checkout
 
-router.get("/checkout", /*verifyToken,async*/ (req, res) => {
+/*router.get("/checkout", verifyToken,async (req, res) => {
     //const user = await User.findOne({ _id: req.user.user._id }).populate("wishlist.candyId");
     res.render("checkout.ejs", {token: req.cookies.jsonwebtoken , title: "Checkout" });
+})*/
+
+router.get("/checkout", verifyToken, async (req, res)=>{
+    const user = await User.findOne({_id: req.body.user._id}).populate("cart.candyId")
+    res.render("checkout", {user, title: "Varukorg - Lasses Lakrits" });
 })
+
+router.get("/checkout/:id", verifyToken, async (req, res) => {
+    const candy = await Candy.findOne({ _id: req.params.id });
+    const user = await User.findOne({ _id: req.user.user._id });
+
+    await user.addToCart(candy);
+    res.redirect("checkout");
+    console.log(this.cart)
+});
+
+router.get("/removeFromCart/:id", verifyToken, async (req, res) => {
+    const user = await User.findOne({ _id: req.user.user._id });
+    user.removeFromCart(req.params.id);
+    res.redirect("checkout");
+})
+
+
+    /*return stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: user.wishlist.map((product)=>{
+            return {
+                name: product.productId.name,
+                amount:product.productId.price*100, //öre *100 = 1 kronor
+                quantity: 1, 
+                currency:"sek"
+            }
+        }),
+        success_url:req.protocol +   "://" + req.get("Host") +  "/",
+        cancel_url:"http://localhost:8000/products"
+        // ":" + process.env.PORT + 
+   
+    }).then( (session)=>{
+        console.log(session)
+    res.render("checkout.ejs", {user, sessionId:session.id})
+    })
+   
+   //// req.protocol + :// + req.get("Host") +"/"
+     
+     //skicka en session id från här .
+     
+   */
+ 
 
 module.exports = router;

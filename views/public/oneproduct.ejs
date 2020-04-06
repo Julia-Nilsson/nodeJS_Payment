@@ -14,7 +14,7 @@
                 <h2><%= selectedCandy.name %></h2> <br>
                 <span><%= selectedCandy.price %> kr</span>
                 <div class="row oneProductBtn">
-                    <a href="/checkout/<%=candy._id %>"><button type="button" class="btn btn-outline-dark">Lägg till</button></a>
+                    <a href="/checkout<%=selectedCandy._id %>"><button type="button" class="btn btn-outline-dark">Lägg till</button></a>
                     <div class="iconDiv">
                         <a href="/wishlist/<%=selectedCandy._id %>" class="heart"><i class="far fa-heart fa-2x"
                                 style="color: black;"></i></a>
