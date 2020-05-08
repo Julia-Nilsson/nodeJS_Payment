@@ -8,7 +8,7 @@ const admin = require("./router/admin/admin");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const app = express();
-require('dotenv').config()
+//require('dotenv').config()
 
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
@@ -33,4 +33,4 @@ mongoose.connect(config.databaseURL, { useNewUrlParser: true, useUnifiedTopology
 
 module.exports = app
 
-//testar
+
