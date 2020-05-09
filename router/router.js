@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("./verifyToken")
 const config = require("../config/config");
 const Candy = require("../model/productSchema");
-require('dotenv').config()
+
 const stripe =require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 //ändra inom andra parentesen, lägg i secret key. För att göra den hemlig lägg den i env
