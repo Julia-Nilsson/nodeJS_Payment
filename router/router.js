@@ -75,7 +75,7 @@ router.route("/signup")
                 const cookie = req.cookies.jsonwebtoken;
                 if (!cookie) {
                     res.cookie("jsonwebtoken", token, { maxAge: 3600000, httpOnly: true });
-                    res.redirect("/mypage");
+                    res.redirect("mypage");
                 }
             }
         })
@@ -113,7 +113,7 @@ router.route("/login")
                     }
                     if (user.admin == true) return res.redirect("/admin");
 
-                    res.redirect("/mypage");
+                    res.redirect("mypage");
                 }
                 res.redirect("/login");
             })
@@ -169,7 +169,7 @@ router.post("/resetpassword/:token", async (req, res) => {
 //Mypage
 router.get("/mypage", verifyToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user.user._id });
-    res.render("/mypage", { token: req.cookies.jsonwebtoken, user, title: "Medlemssida - Lasses Lakrits" });
+    res.render("mypage", { token: req.cookies.jsonwebtoken, user, title: "Medlemssida - Lasses Lakrits" });
 });
 
 //Logga ut
