@@ -4,7 +4,7 @@
   "description": "Gruppuppgift 2, individuell payment",
   "main": "index.js",
   "engines": {
-    "node": "v12.14.1"
+    "node": "v12.14.0"
   },
   "directories": {
     "test": "test"
