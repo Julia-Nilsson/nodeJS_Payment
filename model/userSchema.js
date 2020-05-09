@@ -56,7 +56,7 @@ userSchema.methods.removeFromList = function (candyId) {
     return this.save();
 }
 
-//Lägg till produkt i varukorg
+//Lägg till produkt i varukorgen
 userSchema.methods.addToCart = function(candy) {
     const cartProductIndex = this.cart.items.findIndex(cp => {
       return cp.candyId.toString() === candy._id.toString();
