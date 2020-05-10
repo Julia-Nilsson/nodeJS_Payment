@@ -203,13 +203,13 @@ router.get("/wishlist/:id", verifyToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user.user._id });
 
     await user.addToWishList(candy);
-    res.redirect("wishlist");
+    res.redirect("/wishlist");
 });
 
 router.get("/deleteWishlist/:id", verifyToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user.user._id });
     user.removeFromList(req.params.id);
-    res.redirect("wishlist");
+    res.redirect("/wishlist");
 })
 
 // För att komma till checkout
@@ -261,7 +261,7 @@ router.get("/removeFromCart/:id", verifyToken, async (req, res) => {
    
    //// req.protocol + :// + req.get("Host") +"/"
      
-     //skicka en session id från här .
+  
      
    */
  
