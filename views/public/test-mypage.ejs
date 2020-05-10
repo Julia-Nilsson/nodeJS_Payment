@@ -1,1 +1,51 @@
-<p>det funkar</p>
+<% if(token) { %> <%- include("headermember.ejs") %> <% } 
+ else { %> <%- include("header.ejs") %> <% } %>
+
+<div class="container thecontainer">
+    <div class="row justify-content-center py-3"></div>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-9 text-center">
+            <h5>Välkommen <%=user.name%>!</h5>
+            <p>Här kan du lägga till och ändra din adress.</p>
+            <form action="/userinfo" method="post">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputName2">Efternamn</label>
+                        <input type="email" class="form-control" id="inputName2">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPhoneNumber">Telefonnummer</label>
+                        <input type="text" class="form-control" id="inputPhoneNumber">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-7">
+                        <label for="inputAddress">Adress</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">Postnummer</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputCity">Ort</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-lg-6 text-center">
+                        <button type="submit" class="btn btn-dark w-100">Lägg till adress</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-12 col-md-3 pl-4 pt-2 border-left border-right sidebar-mypage">
+            <h6><a href="/mypage">Mina uppgifter</a></h6>
+            <h6><a href="/wishlist">Min önskelista</a></h6>
+            <h6><a href="/deleteuser">Avsluta medlemskap</a></h6>
+            <h6><%- include("logout.ejs") %></h6>
+        </div>
+    </div>
+
+</div>
+
