@@ -75,7 +75,7 @@ router.route("/signup")
                 const cookie = req.cookies.jsonwebtoken;
                 if (!cookie) {
                     res.cookie("jsonwebtoken", token, { maxAge: 3600000, httpOnly: true });
-                    res.redirect("test-mypage");
+                    res.redirect("/mypage");
                 }
             }
         })
@@ -113,7 +113,7 @@ router.route("/login")
                     }
                     if (user.admin == true) return res.redirect("/admin");
 
-                    res.redirect("test-mypage");
+                    res.redirect("/mypage");
                 }
                 res.redirect("/login");
             })
